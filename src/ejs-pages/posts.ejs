@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%-include('./partials/head.ejs')%>
+  <body>
+    <header class="header">
+      <div class="header__container">
+        <div class="header__inner">
+          <nav class="header__menu">
+            <h1 class="header__title "><a href="/posts">Your notes</a></h1>
+            <ul class="header__list">
+              <li class="header__item"><a href="/posts">posts</a></li>
+              <li class="header__item"><a href="/add-post">add-post</a></li>
+
+              <!-- <% const name ='ejs' %>
+              <li class="header__item"><a href="/add-post"><%=name%></a></li> -->
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </header>
+    <section class="post">
+      <div class="container">
+        <h1 class="title">POSTS</h1>
+        <ul class="post__items">
+          <% posts.forEach(({id,title,date,text,author})=>{%>
+          <li class="post__item">
+            <div class="post__content">
+              <h1 class="post__title"><%=title%></h1>
+              <p class="post__text text"><span><%=text%></span></p>
+              <p class="post__text">Author: <%=author%></p>
+              <p class="post__text">Date: <%=date%></p>
+
+              <div class="post__buttons">
+             <a class="button "  href="/posts/<%= id %>"> <span>Open post</span></a></button>
+              
+              <button class="button" data-id=<%= id %>>
+                <span>Remove post</span> 
+              </button>
+              </div>
+            </div>
+          </li>
+          <%})%>
+        </ul>
+      </div>
+    </section>
+    <script>
+           document.addEventListener('click',(e)=>{
+            const id=e.target?.dataset?.id || null
+            if(id){
+              fetch(`/posts/${id}`,{
+                method:"DELETE",
+              }).then(()=>{
+                window.location.reload()
+              })
+            }
+           })
+      
+    </script>
+  </body>
+</html>
