@@ -108,11 +108,11 @@ const saveToJSON = (post) => {
   log(newData)
   fs.writeFileSync("posts.json", newData, (err) => {
     if (err) throw err;
-    console.log("New data added");
+    console.log("New data add");
   });
 
 };
-
+A
 const createFile = () => {
   fs.writeFileSync("posts.json", "[]", (err) => {
     if (err) throw err;
